@@ -187,7 +187,7 @@ public class pnlListaSeq extends javax.swing.JPanel {
                 atualizar();
             }
             catch(NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Caractere Inválido. Digite um número seu animal!");
+                JOptionPane.showMessageDialog(null, "Caracter inválido. Digite um número!");
             } catch (NumeroInvalidoException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
