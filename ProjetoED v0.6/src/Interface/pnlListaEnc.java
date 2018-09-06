@@ -229,7 +229,14 @@ public class pnlListaEnc extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Escolha uma das opções de busca.");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
-
+    
+    private void rBtnValorActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        rBtnPosicao.setSelected(false);
+    }
+    
+    private void rBtnPosicaoActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        rBtnValor.setSelected(false);
+    }
     
     private void atualizar() {
         lblTamAtual.setText("Numero de Elementos " + lista.size());
