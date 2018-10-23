@@ -3,7 +3,6 @@ package Interface;
 
 import Estruturas.Pilha;
 import Exceptions.*;
-import java.awt.*;
 import javax.swing.*;
 
 /**
@@ -12,7 +11,7 @@ import javax.swing.*;
  */
 public class pnlPilha extends javax.swing.JPanel {
 
-    private Pilha pilha;
+    private final Pilha pilha;
     
     public pnlPilha(int tamanho) {
         initComponents();
@@ -49,6 +48,12 @@ public class pnlPilha extends javax.swing.JPanel {
         btnPop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPopActionPerformed(evt);
+            }
+        });
+
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorActionPerformed(evt);
             }
         });
 
@@ -134,7 +139,7 @@ public class pnlPilha extends javax.swing.JPanel {
             pilha.push(valor);
             atualizar();
         } catch(NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Caracter inválido. Digite um número.");
+            JOptionPane.showMessageDialog(null, "Caracter invalido. Digite um numero.");
         } catch (EstruturaCheiaException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
         }
@@ -143,12 +148,8 @@ public class pnlPilha extends javax.swing.JPanel {
     private void btnPopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPopActionPerformed
          try {
             int dado = pilha.pop();
-            JLabel lbl = new JLabel(new ImageIcon("Fotos//noduloSeq.png"));
-            lbl.setFont(new Font("Tahoma", Font.PLAIN, 48));
-            lbl.setHorizontalTextPosition(JLabel.CENTER);
-            lbl.setText("" + dado);
-            JOptionPane.showMessageDialog(this, lbl, "Removido:", JOptionPane.PLAIN_MESSAGE);
-            
+            Elemento elem = new Elemento("" + dado, "src//assets//noduloSeq.png");
+            JOptionPane.showMessageDialog(this, elem, "Removido:", JOptionPane.PLAIN_MESSAGE);
             atualizar();
          }
          catch (EstruturaVaziaException e) {
@@ -159,15 +160,16 @@ public class pnlPilha extends javax.swing.JPanel {
     private void btnTopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopActionPerformed
         try {
             int dado = pilha.top();
-            JLabel lbl = new JLabel(new ImageIcon("Fotos//noduloSeq.png"));
-            lbl.setFont(new Font("Tahoma", Font.PLAIN, 48));
-            lbl.setHorizontalTextPosition(JLabel.CENTER);
-            lbl.setText("" + dado);
-            JOptionPane.showMessageDialog(this, lbl, "Top", JOptionPane.PLAIN_MESSAGE);
+            Elemento elem = new Elemento("" + dado, "src//assets//noduloSeq.png");
+            JOptionPane.showMessageDialog(this, elem, "Top", JOptionPane.PLAIN_MESSAGE);
         } catch (EstruturaVaziaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btnTopActionPerformed
+
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+        btnPush.doClick();
+    }//GEN-LAST:event_txtValorActionPerformed
 
     private void atualizar() {
         lblTamAtual.setText("Numero de Elementos " + pilha.size());
@@ -176,17 +178,15 @@ public class pnlPilha extends javax.swing.JPanel {
         int[] array = pilha.getArray();
         
         for(int i = pilha.size() -1; i >= 0; i--) {
-            JLabel lbl;   
+            Elemento elem;   
+           
             if(i == pilha.size()-1) {
-                lbl = new JLabel(new ImageIcon("Fotos//noduloSeq3.png"));
+                elem = new Elemento("" + array[i], "src//assets//noduloSeq3.png");
             } else {
-                lbl = new JLabel(new ImageIcon("Fotos//noduloSeq.png"));
+                elem = new Elemento("" + array[i], "src//assets//noduloSeq.png");
             }
-            lbl.setFont(new Font("Tahoma", Font.PLAIN, 48));
-            lbl.setText("" + array[i]);
-            lbl.setHorizontalTextPosition(JLabel.CENTER);  
             
-            pnlEstru.add(lbl);
+            pnlEstru.add(elem);
         }
 
         repaint();

@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Interface;
 
+import Interface.Arvore.pnlABP;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 /**
  *
@@ -39,7 +35,6 @@ public class Main extends javax.swing.JFrame {
         btnPilha = new javax.swing.JButton();
         btnFila = new javax.swing.JButton();
         btnArvore = new javax.swing.JButton();
-        btnGrafo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,10 +77,12 @@ public class Main extends javax.swing.JFrame {
         });
 
         btnArvore.setBackground(new java.awt.Color(195, 195, 210));
-        btnArvore.setText("Árvore");
-
-        btnGrafo.setBackground(new java.awt.Color(195, 195, 210));
-        btnGrafo.setText("Grafos");
+        btnArvore.setText("�rvore");
+        btnArvore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArvoreActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -99,8 +96,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(btnListaEnc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPilha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFila, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnArvore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnArvore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -118,8 +114,6 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btnFila)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnArvore)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGrafo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -139,16 +133,18 @@ public class Main extends javax.swing.JFrame {
 
     private void btnListaSeqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaSeqActionPerformed
         try {
-            int op = Integer.parseInt(JOptionPane.showInputDialog("Informe o tamanho da estrutura: "));
+            String input = JOptionPane.showInputDialog("Informe o tamanho da estrutura: ");
+            if( input == null ) return;
+            int tam = Integer.parseInt(input);
             JFrame frame = new JFrame("Lista Sequencial");
-            frame.add(new pnlListaSeq(op));
+            frame.add(new pnlListaSeq(tam));
             frame.setLocation(500, 250);
             frame.setSize(984, 350);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setResizable(false);
             frame.setVisible(true);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Caracter inválido. Digite um número.");
+            JOptionPane.showMessageDialog(null, "Caracter invalido. Digite um numero.");
         }
     }//GEN-LAST:event_btnListaSeqActionPerformed
 
@@ -164,33 +160,47 @@ public class Main extends javax.swing.JFrame {
 
     private void btnPilhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPilhaActionPerformed
         try {
-            int op = Integer.parseInt(JOptionPane.showInputDialog("Informe o tamanho da estrutura: "));
+             String input = JOptionPane.showInputDialog("Informe o tamanho da estrutura: ");
+            if( input == null ) return;
+            int tam = Integer.parseInt(input);
             JFrame frame = new JFrame("Pilha");
-            frame.add(new pnlPilha(op));
+            frame.add(new pnlPilha(tam));
             frame.setLocation(500, 50);
             frame.setSize(300, 800);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setResizable(false);
             frame.setVisible(true); 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Caracter inválido. Digite um número.");
+            JOptionPane.showMessageDialog(null, "Caracter invalido. Digite um numero.");
         }
     }//GEN-LAST:event_btnPilhaActionPerformed
 
     private void btnFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilaActionPerformed
        try {
-            int op = Integer.parseInt(JOptionPane.showInputDialog("Informe o tamanho da estrutura: "));
+            String input = JOptionPane.showInputDialog("Informe o tamanho da estrutura: ");
+            if( input == null ) return;
+            int tam = Integer.parseInt(input);
             JFrame frame = new JFrame("Fila");
-            frame.add(new pnlFila(op));
+            frame.add(new pnlFila(tam));
             frame.setLocation(500, 250);
             frame.setSize(984, 350);
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             frame.setResizable(false);
             frame.setVisible(true);
        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Caracter inválido. Digite um número.");
+            JOptionPane.showMessageDialog(null, "Caracter invalido. Digite um numero.");
         }
     }//GEN-LAST:event_btnFilaActionPerformed
+
+    private void btnArvoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArvoreActionPerformed
+        JFrame frame = new JFrame("Arvore Binaria");
+        frame.add(new pnlABP());
+        frame.setLocation(500, 250);
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setVisible(true);
+    }//GEN-LAST:event_btnArvoreActionPerformed
 
     
     /**
@@ -232,7 +242,6 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArvore;
     private javax.swing.JButton btnFila;
-    private javax.swing.JButton btnGrafo;
     private javax.swing.JButton btnListaEnc;
     private javax.swing.JButton btnListaSeq;
     private javax.swing.JButton btnPilha;

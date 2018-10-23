@@ -11,7 +11,7 @@ import javax.swing.*;
  */
 public class pnlListaSeq extends javax.swing.JPanel {
 
-    private ListaSeq lista;
+    private final ListaSeq lista;
     private int pA;
 
     public pnlListaSeq(int tamanho) {
@@ -60,7 +60,13 @@ public class pnlListaSeq extends javax.swing.JPanel {
         });
 
         lblPosicao.setBackground(new java.awt.Color(134, 134, 164));
-        lblPosicao.setText("Posiçao:");
+        lblPosicao.setText("Posi�ao:");
+
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorActionPerformed(evt);
+            }
+        });
 
         btnRemover.setBackground(new java.awt.Color(195, 195, 210));
         btnRemover.setText("Remover");
@@ -75,7 +81,7 @@ public class pnlListaSeq extends javax.swing.JPanel {
 
         rBtnPosicao.setBackground(new java.awt.Color(195, 195, 210));
         buttonGroup1.add(rBtnPosicao);
-        rBtnPosicao.setText("Por Posição");
+        rBtnPosicao.setText("Por Posi��o");
 
         rBtnValor.setBackground(new java.awt.Color(195, 195, 210));
         buttonGroup1.add(rBtnValor);
@@ -94,6 +100,12 @@ public class pnlListaSeq extends javax.swing.JPanel {
 
         lblTamAtual.setBackground(new java.awt.Color(134, 134, 164));
         lblTamAtual.setText("Numero de Elementos: ");
+
+        txtPosicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPosicaoActionPerformed(evt);
+            }
+        });
 
         scrollPane.setBackground(new java.awt.Color(134, 134, 164));
 
@@ -177,17 +189,14 @@ public class pnlListaSeq extends javax.swing.JPanel {
         try {
             int pos = Integer.parseInt(txtPosicao.getText());
             int dado = lista.remove(pos);
-           
-            JLabel lbl = new JLabel(new ImageIcon("Fotos//noduloSeq.png"));
-            lbl.setFont(new Font("Tahoma", Font.PLAIN, 48));
-            lbl.setHorizontalTextPosition(JLabel.CENTER);
-            lbl.setText("" + dado);
-            JOptionPane.showMessageDialog(this, lbl, "Info", JOptionPane.PLAIN_MESSAGE);
-            
+
+            Elemento elem = new Elemento("" + dado, "src//assets//noduloSeq.png");
+            JOptionPane.showMessageDialog(this, elem, "Info", JOptionPane.PLAIN_MESSAGE);
+
             pA = -1;
             atualizar();
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Caracter inválido. Digite um número!");
+            JOptionPane.showMessageDialog(null, "Caracter invalido. Digite um numero!");
         } catch (NumeroInvalidoException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
@@ -195,21 +204,20 @@ public class pnlListaSeq extends javax.swing.JPanel {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         if (txtPosicao.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Digite uma posição.");
+            JOptionPane.showMessageDialog(null, "Digite uma posicao.");
         } else if (txtValor.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite um valor.");
         } else {
             try {
                 int pos = Integer.parseInt(txtPosicao.getText());
                 int valor = Integer.parseInt(txtValor.getText());
-               
+
                 pA = pos;
                 atualizar();
                 lista.insert(pos, valor);
-                
-                
+
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Caracter inválido. Digite um número.");
+                JOptionPane.showMessageDialog(null, "Caracter invalido. Digite um numero.");
             } catch (NumeroInvalidoException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             } catch (EstruturaCheiaException ex) {
@@ -224,14 +232,13 @@ public class pnlListaSeq extends javax.swing.JPanel {
                 int bus = Integer.parseInt(txtBusca.getText());
                 int dado = lista.searchPosition(bus);
                 pA = bus;
-                JLabel lbl = new JLabel(new ImageIcon("Fotos//noduloSeq.png"));
-                lbl.setFont(new Font("Tahoma", Font.PLAIN, 48));
-                lbl.setHorizontalTextPosition(JLabel.CENTER);
-                lbl.setText("" + dado);
-                JOptionPane.showMessageDialog(this, lbl, "Valor na posição:" , JOptionPane.PLAIN_MESSAGE);
+
+                Elemento elem = new Elemento("" + dado, "src//assets//noduloSeq.png");
+                JOptionPane.showMessageDialog(this, elem, "Valor na posicao:", JOptionPane.PLAIN_MESSAGE);
+
                 atualizar();
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Caracter inválido. Digite um número.");
+                JOptionPane.showMessageDialog(null, "Caracter invalido. Digite um numero.");
             } catch (NumeroInvalidoException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
@@ -239,49 +246,54 @@ public class pnlListaSeq extends javax.swing.JPanel {
             try {
                 int bus = Integer.parseInt(txtBusca.getText());
                 int pos = lista.searchValue(bus);
-                JOptionPane.showMessageDialog(null, "Valor encontrado na posição: " + pos);
+                JOptionPane.showMessageDialog(null, "Valor encontrado na posicao: " + pos);
                 pA = pos;
                 atualizar();
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Caracter inválido. Digite um número.");
+                JOptionPane.showMessageDialog(null, "Caracter invalido. Digite um numero.");
             } catch (DadoNaoEncontradoException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Escolha uma das opções de busca.");
+            JOptionPane.showMessageDialog(null, "Escolha uma das op�coes de busca.");
         }
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+        btnAdicionar.doClick();
+    }//GEN-LAST:event_txtValorActionPerformed
+
+    private void txtPosicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPosicaoActionPerformed
+        btnAdicionar.doClick();
+    }//GEN-LAST:event_txtPosicaoActionPerformed
+
     public void atualizar() {
         Container cont = new Container();
-        //cont.setBackground(new Color(195,195,210));
-        lblTamAtual.setText("Numero de Elementos " + lista.size()); 
-       
+        cont.setBackground(new Color(195,195,210));
+        lblTamAtual.setText("Numero de Elementos " + lista.size());
+
         for (int i = 1; i <= lista.maxSize(); i++) {
-            JLabel lbl;
-            try {                
-                if(i == pA){
-                    lbl = new JLabel(new ImageIcon("Fotos//noduloSeq3.png"));
+            Elemento elem;
+            try {
+                if (i == pA) {
+                    elem = new Elemento("" + lista.searchPosition(i), "src//assets//noduloSeq3.png");
                 } else {
-                    lbl = new JLabel(new ImageIcon("Fotos//noduloSeq.png"));
+                    elem = new Elemento("" + lista.searchPosition(i), "src//assets//noduloSeq.png");
                 }
-                lbl.setFont(new Font("Tahoma", Font.PLAIN, 48));
-                lbl.setText("" + lista.searchPosition(i));
-                lbl.setHorizontalTextPosition(JLabel.CENTER);
-                cont.add(lbl);
+
+                cont.add(elem);
             } catch (NumeroInvalidoException ex) {
-                lbl = new JLabel(new ImageIcon("Fotos//noduloNull.png"));
-                lbl.setFont(new Font("Tahoma", Font.PLAIN, 48));
-                lbl.setText("Ø");
-                lbl.setHorizontalTextPosition(JLabel.CENTER);
-                cont.add(lbl);
+                elem = new Elemento("", "src//assets//noduloNull.png");
+                cont.add(elem);
             }
         }
+
         cont.setLayout(new BoxLayout(cont, BoxLayout.X_AXIS));
         int sValue = scrollPane.getHorizontalScrollBar().getValue();
         scrollPane.getViewport().setView(cont);
-        scrollPane.getHorizontalScrollBar().setValue(sValue);          
+        scrollPane.getHorizontalScrollBar().setValue(sValue);
+        scrollPane.getViewport().setBackground(new Color(195,195,210));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

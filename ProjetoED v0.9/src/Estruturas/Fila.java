@@ -1,4 +1,4 @@
-//luan esteve aqui
+
 package Estruturas;
 
 import Exceptions.*;
@@ -43,7 +43,7 @@ public class Fila {
     
     public boolean insert(int value) throws EstruturaCheiaException {
         if(full()) {
-            throw new EstruturaCheiaException("A fila está cheia.");
+            throw new EstruturaCheiaException("A fila esta cheia.");
         }
         
         fim = (fim + 1) % dados.length;
@@ -54,7 +54,7 @@ public class Fila {
     
     public int remove() throws EstruturaVaziaException {
         if(empty()) {
-            throw new EstruturaVaziaException("A fila está vazia.");
+            throw new EstruturaVaziaException("A fila esta vazia.");
         }
         
         int removido = dados[inicio];
@@ -66,13 +66,13 @@ public class Fila {
     
     public int consult() throws EstruturaVaziaException {
         if(empty()) {
-            throw new EstruturaVaziaException("A fila está vazia.");
+            throw new EstruturaVaziaException("A fila esta vazia.");
         }
         
         return dados[inicio];
     }
     
-    //Adaptações:
+    //Adaptacoes:
     public int[] getArray() {
         return dados;
     }

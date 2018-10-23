@@ -1,10 +1,7 @@
-
 package Interface;
-
 
 import Estruturas.Fila;
 import Exceptions.*;
-import java.awt.*;
 import javax.swing.*;
 
 /**
@@ -13,8 +10,8 @@ import javax.swing.*;
  */
 public class pnlFila extends javax.swing.JPanel {
 
-    private Fila fila;
-    
+    private final Fila fila;
+
     public pnlFila(int tamanho) {
         initComponents();
         fila = new Fila(tamanho);
@@ -53,6 +50,12 @@ public class pnlFila extends javax.swing.JPanel {
 
         lblValor.setText("Valor:");
 
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorActionPerformed(evt);
+            }
+        });
+
         btnRemover.setBackground(new java.awt.Color(195, 195, 210));
         btnRemover.setText("Remover");
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +69,7 @@ public class pnlFila extends javax.swing.JPanel {
         jScrollPane1.setViewportView(pnlFila);
 
         btnInicio.setBackground(new java.awt.Color(195, 195, 210));
-        btnInicio.setText("Início");
+        btnInicio.setText("In�cio");
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInicioActionPerformed(evt);
@@ -122,12 +125,12 @@ public class pnlFila extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        try {  
+        try {
             int valor = Integer.parseInt(txtValor.getText());
             fila.insert(valor);
             atualizar();
-        } catch(NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Caractere Inválido. Digite um numero");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Caractere Invalido. Digite um numero");
         } catch (EstruturaCheiaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -136,108 +139,79 @@ public class pnlFila extends javax.swing.JPanel {
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         try {
             int removido = fila.remove();
-            JLabel lbl = new JLabel(new ImageIcon("Fotos//noduloSeq.png"));
-            lbl.setFont(new Font("Tahoma", Font.PLAIN, 48));
-            lbl.setHorizontalTextPosition(JLabel.CENTER);
-            lbl.setText("" + removido);
-            JOptionPane.showMessageDialog(this, lbl, "Removido:", JOptionPane.PLAIN_MESSAGE);
-            
+            Elemento elem = new Elemento("" + removido, "src//assets//noduloSeq.png");
+            JOptionPane.showMessageDialog(this, elem, "Removido:", JOptionPane.PLAIN_MESSAGE);
+
             atualizar();
         } catch (EstruturaVaziaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
-        } 
+        }
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         try {
             int inicio = fila.consult();
-            JLabel lbl = new JLabel(new ImageIcon("Fotos//noduloSeq.png"));
-            lbl.setFont(new Font("Tahoma", Font.PLAIN, 48));
-            lbl.setHorizontalTextPosition(JLabel.CENTER);
-            lbl.setText("" + inicio);
-            JOptionPane.showMessageDialog(this, lbl, "Inicio:", JOptionPane.PLAIN_MESSAGE);
+            Elemento elem = new Elemento("" + inicio, "src//assets//noduloSeq.png");
+            JOptionPane.showMessageDialog(this, elem, "Inicio:", JOptionPane.PLAIN_MESSAGE);
         } catch (EstruturaVaziaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+        btnAdicionar.doClick();
+    }//GEN-LAST:event_txtValorActionPerformed
+
     private void atualizar() {
-        lblTamAtual.setText("Número de Elementos: " + fila.size());
-        
+        lblTamAtual.setText("Numero de Elementos: " + fila.size());
+
         pnlFila.removeAll();
-        
-        // Mudar o valor de txtValor para null.
-        // Fazer imagens para a representação do início, fim e elemento neutro.
+
         int[] array = fila.getArray();
-        
-            for(int i = 0; i < fila.maxSize(); i++) {
-                    JLabel lbl;
-                    if(fila.size() == 1 && i == fila.getInicio()) {
-                        
-                        lbl = new JLabel(new ImageIcon("Fotos//noduloInicioFinal.png"));
-                        lbl.setFont(new Font("Tahoma",Font.PLAIN,48));
-                            lbl.setText("" + array[i] );
-                            lbl.setHorizontalTextPosition(JLabel.CENTER);
-                    }
-                    
-                    else if(i == fila.getInicio()) {
-                        if(fila.empty()) {
-                            lbl = new JLabel(new ImageIcon("Fotos//noduloInicioNull.png"));
-                        } else {
-                            lbl = new JLabel(new ImageIcon("Fotos//noduloInicio.png"));
-                            lbl.setFont(new Font("Tahoma",Font.PLAIN,48));
-                            lbl.setText("" + array[i] );
-                            lbl.setHorizontalTextPosition(JLabel.CENTER);
-                        }
-                    } 
-                    else if(i == fila.getFinal()){
-                        if(fila.empty()) {
-                            lbl = new JLabel(new ImageIcon("Fotos//noduloFinalNull.png"));
-                        } else {
-                            lbl = new JLabel(new ImageIcon("Fotos//noduloFinal.png"));
-                            lbl.setFont(new Font("Tahoma",Font.PLAIN,48));
-                            lbl.setText("" + array[i] );
-                            lbl.setHorizontalTextPosition(JLabel.CENTER);
-                        }
-                    }
-                    else if(fila.empty()) {
-                        lbl = new JLabel(new ImageIcon("Fotos//noduloNull2.png"));
-                    }
-                    else if(fila.getInicio() <= fila.getFinal()) {
-                        if(i < fila.getInicio() || i > fila.getFinal()) {
-                            lbl = new JLabel(new ImageIcon("Fotos//noduloNull2.png"));
-                        }
-                        else{
-                        lbl = new JLabel(new ImageIcon("Fotos//noduloSeq2.png"));
-                            lbl.setFont(new Font("Tahoma",Font.PLAIN,48));
-                            lbl.setText("" + array[i] );
-                            lbl.setHorizontalTextPosition(JLabel.CENTER);
-                        }
-                    }
-                    else if(fila.getInicio() > fila.getFinal()) {
-                        if(i < fila.getInicio() && i > fila.getFinal()) {
-                            lbl = new JLabel(new ImageIcon("Fotos//noduloNull2.png"));
-                        }
-                        else{
-                        lbl = new JLabel(new ImageIcon("Fotos//noduloSeq2.png"));
-                            lbl.setFont(new Font("Tahoma",Font.PLAIN,48));
-                            lbl.setText("" + array[i] );
-                            lbl.setHorizontalTextPosition(JLabel.CENTER);
-                        }
-                    } 
-                    else{
-                        lbl = new JLabel(new ImageIcon("Fotos//noduloSeq2.png"));
-                            lbl.setFont(new Font("Tahoma",Font.PLAIN,48));
-                            lbl.setText("" + array[i] );
-                            lbl.setHorizontalTextPosition(JLabel.CENTER);
-                    }
-                    
-                    pnlFila.add(lbl);
+        Elemento elem;
+        for (int i = 0; i < fila.maxSize(); i++) {
+            //Se a fila estiver vazia
+            if (fila.empty()) {
+                if (i == fila.getInicio()) {
+                    elem = new Elemento("", "src//assets//noduloInicioNull.png");
+                } else if (i == fila.getFinal()) {
+                    elem = new Elemento("", "src//assets//noduloFinalNull.png");
+                } else {
+                    elem = new Elemento("", "src//assets//noduloNull2.png");
+                }
             } 
-        
+            //Se a fila so possui um elemento
+            else if (fila.size() == 1 && i == fila.getInicio()) {
+                elem = new Elemento("" + array[i], "src//assets//noduloInicioFinal.png");
+            } 
+            //No inicio da fila
+            else if (i == fila.getInicio()) {
+                elem = new Elemento("" + array[i], "src//assets//noduloInicio.png");
+            } 
+            //No final da fila
+            else if (i == fila.getFinal()) {
+                elem = new Elemento("" + array[i], "src//assets//noduloFinal.png");
+            }
+            //Se a posicao do Inicio for menor que a do Final
+            //e a posicao i eh menor que Inicio ou maior que Final
+            else if (fila.getInicio() <= fila.getFinal() && (i < fila.getInicio() || i > fila.getFinal())) {
+                    elem = new Elemento("", "src//assets//noduloNull2.png");
+                }
+            //Se a posicao do Inicio for maior que a do Final
+            //e a posicao i eh maior que Inicio e menor que Final
+            else if (fila.getInicio() > fila.getFinal() && (i < fila.getInicio() && i > fila.getFinal())) {
+                    elem = new Elemento("", "src//assets//noduloNull2.png");
+                } 
+            else {
+                elem = new Elemento("" + array[i], "src//assets//noduloSeq2.png");
+            }
+
+            pnlFila.add(elem);
+        }
+
         repaint();
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnInicio;
