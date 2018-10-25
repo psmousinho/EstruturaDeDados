@@ -2,8 +2,6 @@ package Interface.Arvore;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -14,7 +12,9 @@ public class NoGrafico extends JPanel {
     private boolean isSelected;
     
     /** Creates new form Element
-     * @param value */
+     * @param value
+     * @param scale
+     * @param isSelected */
     public NoGrafico(String value, int scale, boolean isSelected) {
         this.value = value;
         this.isSelected = isSelected;
@@ -38,7 +38,6 @@ public class NoGrafico extends JPanel {
         setMinimumSize(new java.awt.Dimension(100, 100));
         setPreferredSize(new java.awt.Dimension(100, 100));
 
-        elementLabel.setFont(new java.awt.Font("Tahoma", 1, 24));
         elementLabel.setHorizontalTextPosition(JLabel.CENTER);
         elementLabel.setText(value);
         elementLabel.setToolTipText(value);
@@ -69,7 +68,7 @@ public class NoGrafico extends JPanel {
     }
     
     private void setSize(int scale){
-        Dimension dim = new Dimension(ConstantsLabels.sizes[scale], ConstantsLabels.sizes[scale]);
+        Dimension dim = new Dimension(ConstantsLabels.DIMENSIONS[scale], ConstantsLabels.DIMENSIONS[scale]);
         int x = (int) dim.getHeight();
         this.setMinimumSize(dim);
         this.setMaximumSize(dim);
@@ -78,12 +77,11 @@ public class NoGrafico extends JPanel {
         elementLabel.setMaximumSize(dim);
         elementLabel.setPreferredSize(dim);
         if(isSelected) {
-        elementLabel.setIcon(ConstantsLabels.selectNode[scale]);
+            elementLabel.setIcon(ConstantsLabels.SELECTED_NODE[scale]);
+        } else {
+            elementLabel.setIcon(ConstantsLabels.NORMAL_NODE[scale]);
         }
-        else {
-            elementLabel.setIcon(ConstantsLabels.normalNode[scale]);
-        }
-        
+        elementLabel.setFont(new java.awt.Font("Tahoma", 1, ConstantsLabels.FONT_SIZES[scale]));
         this.revalidate();
     }
     

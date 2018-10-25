@@ -42,9 +42,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="elementLabel">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="elementLabel.setHorizontalTextPosition(JLabel.CENTER);&#xa;elementLabel.setText(value);">
-          <Connection code="new java.awt.Font(&quot;Tahoma&quot;, 1, 24)" type="code"/>
-        </Property>
+        <Property name="font" postCode="elementLabel.setHorizontalTextPosition(JLabel.CENTER);&#xa;elementLabel.setText(value);"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="value" type="code"/>
         </Property>

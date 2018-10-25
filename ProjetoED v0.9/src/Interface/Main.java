@@ -1,8 +1,10 @@
 
 package Interface;
 
+import Interface.Arvore.Espaco;
+import Interface.Arvore.NoGrafico;
+import Interface.Arvore.Seta;
 import Interface.Arvore.pnlABP;
-import java.util.Timer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -10,14 +12,13 @@ import javax.swing.JOptionPane;
  *
  * @author aluno
  */
-public class Main extends javax.swing.JFrame {
-
+public class Main extends JFrame {
     /**
      * Creates new form NewJFrame
      */
     public Main() {
         initComponents();
-        setLocation(300, 200);
+        loadTreeAssets();
     }
 
     /**
@@ -29,8 +30,9 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        contentPanel = new javax.swing.JPanel();
+        titleLabel = new javax.swing.JLabel();
+        buttonsPanel = new javax.swing.JPanel();
         btnListaSeq = new javax.swing.JButton();
         btnListaEnc = new javax.swing.JButton();
         btnPilha = new javax.swing.JButton();
@@ -38,17 +40,21 @@ public class Main extends javax.swing.JFrame {
         btnArvore = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(195, 195, 210));
 
-        jPanel1.setBackground(new java.awt.Color(195, 195, 210));
+        contentPanel.setBackground(new java.awt.Color(195, 195, 210));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(134, 134, 164));
-        jLabel1.setText("Estruturas:");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(134, 134, 164));
+        titleLabel.setText("Estruturas:");
+        titleLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                titleLabelMouseClicked(evt);
             }
         });
+
+        buttonsPanel.setBackground(new java.awt.Color(195, 195, 210));
+        buttonsPanel.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
 
         btnListaSeq.setBackground(new java.awt.Color(195, 195, 210));
         btnListaSeq.setText("Lista Sequecial");
@@ -57,6 +63,7 @@ public class Main extends javax.swing.JFrame {
                 btnListaSeqActionPerformed(evt);
             }
         });
+        buttonsPanel.add(btnListaSeq);
 
         btnListaEnc.setBackground(new java.awt.Color(195, 195, 210));
         btnListaEnc.setText("Lista Encadeada");
@@ -65,6 +72,7 @@ public class Main extends javax.swing.JFrame {
                 btnListaEncActionPerformed(evt);
             }
         });
+        buttonsPanel.add(btnListaEnc);
 
         btnPilha.setBackground(new java.awt.Color(195, 195, 210));
         btnPilha.setText("Pilha");
@@ -73,6 +81,7 @@ public class Main extends javax.swing.JFrame {
                 btnPilhaActionPerformed(evt);
             }
         });
+        buttonsPanel.add(btnPilha);
 
         btnFila.setBackground(new java.awt.Color(195, 195, 210));
         btnFila.setText("Fila");
@@ -81,6 +90,7 @@ public class Main extends javax.swing.JFrame {
                 btnFilaActionPerformed(evt);
             }
         });
+        buttonsPanel.add(btnFila);
 
         btnArvore.setBackground(new java.awt.Color(195, 195, 210));
         btnArvore.setText("Árvore");
@@ -89,37 +99,26 @@ public class Main extends javax.swing.JFrame {
                 btnArvoreActionPerformed(evt);
             }
         });
+        buttonsPanel.add(btnArvore);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
+        contentPanel.setLayout(contentPanelLayout);
+        contentPanelLayout.setHorizontalGroup(
+            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnListaSeq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnListaEnc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPilha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFila, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnArvore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        contentPanelLayout.setVerticalGroup(
+            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(titleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnListaSeq)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnListaEnc)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPilha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFila)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnArvore)
+                .addComponent(buttonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -127,11 +126,15 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -208,10 +211,16 @@ public class Main extends javax.swing.JFrame {
         frame.setVisible(true);
     }//GEN-LAST:event_btnArvoreActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        //new Timer().scheduleAtFixedRate(new Timer, WIDTH, ERROR);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    private void titleLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_titleLabelMouseClicked
 
+    }//GEN-LAST:event_titleLabelMouseClicked
+
+    private void loadTreeAssets(){
+        new Seta(1, false);
+        new NoGrafico("", 1, false);
+        new Espaco(1);
+        setLocation(300, 200);
+    }
     
     /**
      * @param args the command line arguments
@@ -242,10 +251,8 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Main().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Main().setVisible(true);
         });
     }
 
@@ -255,7 +262,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnListaEnc;
     private javax.swing.JButton btnListaSeq;
     private javax.swing.JButton btnPilha;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel buttonsPanel;
+    private javax.swing.JPanel contentPanel;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

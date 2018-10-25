@@ -226,8 +226,6 @@ public class pnlABP extends javax.swing.JPanel {
 
             }
         }, 500, 500);
-
-
     }//GEN-LAST:event_btnPreOrderActionPerformed
 
     private void btnInOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInOrderActionPerformed
@@ -235,9 +233,7 @@ public class pnlABP extends javax.swing.JPanel {
         ArrayList<Integer> list = tree.inOrder();
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
-
             int i = 0;
-
             @Override
             public void run() {
                 if (list.isEmpty()) {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interface.Arvore;
 
 import java.awt.Image;
@@ -14,7 +9,7 @@ import javax.swing.ImageIcon;
  */
 public class ConstantsLabels {
 
-    public static ImageIcon normalNode[] = {
+    public final static ImageIcon[] NORMAL_NODE = {
         null,
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/NoArvore1.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)),
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/NoArvore1.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)),
@@ -26,7 +21,7 @@ public class ConstantsLabels {
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/NoArvore1.png")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH))
     };
     
-    public static ImageIcon selectNode[] = {
+    public final static ImageIcon[] SELECTED_NODE = {
         null,
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/NoArvore2.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)),
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/NoArvore2.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)),
@@ -38,7 +33,7 @@ public class ConstantsLabels {
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/NoArvore2.png")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH))
     };
 
-    public static ImageIcon leftArrow[] = {
+    public final static ImageIcon[] LEFT_ARROW = {
         null,
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/diagonalL.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)),
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/diagonalL.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)),
@@ -50,7 +45,7 @@ public class ConstantsLabels {
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/diagonalL.png")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH))
     };
 
-    public static ImageIcon rightArrow[] = {
+    public final static ImageIcon[] RIGHT_ARROW = {
         null,
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/diagonalR.png")).getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH)),
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/diagonalR.png")).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)),
@@ -62,8 +57,6 @@ public class ConstantsLabels {
         new ImageIcon(new ImageIcon(ConstantsLabels.class.getResource("/assets/diagonalR.png")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH))
     };
     
-    
-
-    public static int[] sizes = {0,25, 50, 75, 100, 125, 150, 175, 200};
-
+    public final static int[] DIMENSIONS = {0, 25, 50, 75, 100, 125, 150, 175, 200};
+    public final static int[] FONT_SIZES = {0, 14, 18, 24, 30, 38, 48, 60, 75};
 }

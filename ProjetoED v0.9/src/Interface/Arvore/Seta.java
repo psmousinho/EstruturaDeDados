@@ -83,9 +83,9 @@ public class Seta extends JPanel {
         arrowLabel.setMaximumSize(dim);
         arrowLabel.setPreferredSize(dim);
         if(left) {
-            arrowLabel.setIcon(ConstantsLabels.leftArrow[scale]);
+            arrowLabel.setIcon(ConstantsLabels.LEFT_ARROW[scale]);
         } else {
-            arrowLabel.setIcon(ConstantsLabels.rightArrow[scale]);
+            arrowLabel.setIcon(ConstantsLabels.RIGHT_ARROW[scale]);
         }
         this.revalidate();
     }

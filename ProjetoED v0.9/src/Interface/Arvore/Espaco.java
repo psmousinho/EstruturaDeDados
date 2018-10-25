@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class Espaco extends JPanel {
     
     /** Creates new form Element
-     * @param value */
+     * @param scale */
     public Espaco(int scale) {
         initComponents();
         setSize(scale);
@@ -44,7 +44,7 @@ public class Espaco extends JPanel {
     }
     
     private void setSize(int scale){
-        Dimension dim = new Dimension(ConstantsLabels.sizes[scale], ConstantsLabels.sizes[scale]);
+        Dimension dim = new Dimension(ConstantsLabels.DIMENSIONS[scale], ConstantsLabels.DIMENSIONS[scale]);
         this.setMinimumSize(dim);
         this.setMaximumSize(dim);
         this.setPreferredSize(dim);
