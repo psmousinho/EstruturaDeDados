@@ -208,6 +208,10 @@ public class pnlABP extends javax.swing.JPanel {
     }//GEN-LAST:event_scaleSliderStateChanged
 
     private void btnPreOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreOrderActionPerformed
+        if (tree.empty()) {
+            JOptionPane.showMessageDialog(this, "A arvore esta vazia");
+            return;
+        }
         enableButtons(false);
         ArrayList<Integer> list = tree.preOrder();
 
@@ -229,11 +233,16 @@ public class pnlABP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPreOrderActionPerformed
 
     private void btnInOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInOrderActionPerformed
+        if (tree.empty()) {
+            JOptionPane.showMessageDialog(this, "A arvore esta vazia");
+            return;
+        }
         enableButtons(false);
         ArrayList<Integer> list = tree.inOrder();
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             int i = 0;
+
             @Override
             public void run() {
                 if (list.isEmpty()) {
@@ -248,6 +257,10 @@ public class pnlABP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInOrderActionPerformed
 
     private void btnPosOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPosOrderActionPerformed
+        if (tree.empty()) {
+            JOptionPane.showMessageDialog(this, "A arvore esta vazia");
+            return;
+        }
         enableButtons(false);
         ArrayList<Integer> list = tree.posOrder();
 
@@ -270,6 +283,10 @@ public class pnlABP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPosOrderActionPerformed
 
     private void btnByLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnByLevelActionPerformed
+        if (tree.empty()) {
+            JOptionPane.showMessageDialog(this, "A arvore esta vazia");
+            return;
+        }
         enableButtons(false);
         ArrayList<Integer> list = tree.byLevel();
 

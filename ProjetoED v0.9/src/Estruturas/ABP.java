@@ -152,9 +152,9 @@ public class ABP {
             return;
         }
 
-        preOrder(node.getLeft(), list);
+        inOrder(node.getLeft(), list);
         list.add(node.getContent());
-        preOrder(node.getRight(), list);
+        inOrder(node.getRight(), list);
     }
 
     public ArrayList<Integer> inOrder() {
@@ -168,8 +168,8 @@ public class ABP {
             return;
         }
 
-        preOrder(node.getLeft(), list);
-        preOrder(node.getRight(), list);
+        posOrder(node.getLeft(), list);
+        posOrder(node.getRight(), list);
         list.add(node.getContent());
     }
 

@@ -5,8 +5,10 @@ import Interface.Arvore.Espaco;
 import Interface.Arvore.NoGrafico;
 import Interface.Arvore.Seta;
 import Interface.Arvore.pnlABP;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -19,6 +21,8 @@ public class Main extends JFrame {
     public Main() {
         initComponents();
         loadTreeAssets();
+        setResizable(false);
+        getContentPane().setBackground(new Color(195,195,210));
     }
 
     /**
@@ -30,7 +34,6 @@ public class Main extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        contentPanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         buttonsPanel = new javax.swing.JPanel();
         btnListaSeq = new javax.swing.JButton();
@@ -41,8 +44,9 @@ public class Main extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(195, 195, 210));
-
-        contentPanel.setBackground(new java.awt.Color(195, 195, 210));
+        setForeground(new Color(195,195,210));
+        setMaximumSize(new java.awt.Dimension(251, 275));
+        setMinimumSize(new java.awt.Dimension(251, 275));
 
         titleLabel.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(134, 134, 164));
@@ -52,6 +56,7 @@ public class Main extends JFrame {
                 titleLabelMouseClicked(evt);
             }
         });
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         buttonsPanel.setBackground(new java.awt.Color(195, 195, 210));
         buttonsPanel.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
@@ -101,40 +106,30 @@ public class Main extends JFrame {
         });
         buttonsPanel.add(btnArvore);
 
-        javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
-        contentPanel.setLayout(contentPanelLayout);
-        contentPanelLayout.setHorizontalGroup(
-            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        contentPanelLayout.setVerticalGroup(
-            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titleLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(buttonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(titleLabel)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(70, Short.MAX_VALUE)
+                    .addComponent(buttonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         pack();
@@ -216,8 +211,7 @@ public class Main extends JFrame {
     }//GEN-LAST:event_titleLabelMouseClicked
 
     private void loadTreeAssets(){
-        new Seta(1, false);
-        new NoGrafico("", 1, false);
+        
         new Espaco(1);
         setLocation(300, 200);
     }
@@ -263,7 +257,6 @@ public class Main extends JFrame {
     private javax.swing.JButton btnListaSeq;
     private javax.swing.JButton btnPilha;
     private javax.swing.JPanel buttonsPanel;
-    private javax.swing.JPanel contentPanel;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
