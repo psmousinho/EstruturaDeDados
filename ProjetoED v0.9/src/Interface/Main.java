@@ -2,6 +2,7 @@
 package Interface;
 
 import Interface.Arvore.pnlABP;
+import java.util.Timer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -43,6 +44,11 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(134, 134, 164));
         jLabel1.setText("Estruturas:");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         btnListaSeq.setBackground(new java.awt.Color(195, 195, 210));
         btnListaSeq.setText("Lista Sequecial");
@@ -201,6 +207,10 @@ public class Main extends javax.swing.JFrame {
         frame.setResizable(true);
         frame.setVisible(true);
     }//GEN-LAST:event_btnArvoreActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        //new Timer().scheduleAtFixedRate(new Timer, WIDTH, ERROR);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     
     /**

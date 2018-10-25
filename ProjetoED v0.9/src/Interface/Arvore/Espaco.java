@@ -1,16 +1,16 @@
 package Interface.Arvore;
 
 import java.awt.Color;
-import javax.swing.JLabel;
+import java.awt.Dimension;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class Espaco extends JPanel {
     
     /** Creates new form Element
      * @param value */
-    public Espaco() {
+    public Espaco(int scale) {
         initComponents();
+        setSize(scale);
     }
 
     /** This method is called from within the constructor to
@@ -43,6 +43,13 @@ public class Espaco extends JPanel {
         setBackground(newColor);
     }
     
+    private void setSize(int scale){
+        Dimension dim = new Dimension(ConstantsLabels.sizes[scale], ConstantsLabels.sizes[scale]);
+        this.setMinimumSize(dim);
+        this.setMaximumSize(dim);
+        this.setPreferredSize(dim);
+        this.revalidate();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 

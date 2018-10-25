@@ -1,6 +1,8 @@
 package Interface.Arvore;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,26 +11,15 @@ import javax.swing.SwingConstants;
 public class NoGrafico extends JPanel {
 
     private String value;
-    
-    private static ImageIcon normal = new ImageIcon("src//assets//NoArvore1.png");
-    private static ImageIcon selected = new ImageIcon("src//assets//NoArvore2.png");;
-    
+    private boolean isSelected;
     
     /** Creates new form Element
      * @param value */
-    public NoGrafico(String value, boolean isSelected) {
+    public NoGrafico(String value, int scale, boolean isSelected) {
         this.value = value;
-        
+        this.isSelected = isSelected;
         initComponents();
-        
-        if(isSelected) {
-            elementLabel.setIcon(selected);
-        }
-        else {
-            elementLabel.setIcon(normal);
-        }
-        
-        
+        setSize(scale);
     }
 
     /** This method is called from within the constructor to
@@ -75,6 +66,25 @@ public class NoGrafico extends JPanel {
     
     public JLabel getLabel(){
         return elementLabel;
+    }
+    
+    private void setSize(int scale){
+        Dimension dim = new Dimension(ConstantsLabels.sizes[scale], ConstantsLabels.sizes[scale]);
+        int x = (int) dim.getHeight();
+        this.setMinimumSize(dim);
+        this.setMaximumSize(dim);
+        this.setPreferredSize(dim);
+        elementLabel.setMinimumSize(dim);
+        elementLabel.setMaximumSize(dim);
+        elementLabel.setPreferredSize(dim);
+        if(isSelected) {
+        elementLabel.setIcon(ConstantsLabels.selectNode[scale]);
+        }
+        else {
+            elementLabel.setIcon(ConstantsLabels.normalNode[scale]);
+        }
+        
+        this.revalidate();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

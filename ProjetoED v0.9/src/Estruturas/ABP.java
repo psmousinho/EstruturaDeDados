@@ -124,36 +124,114 @@ public class ABP {
                 aux.setRight(newNo);
             }
 
-        } catch (EstruturaVaziaException ex) {}
+        } catch (EstruturaVaziaException ex) {
+        }
 
         return true;
     }
 
-    public void showTree() {
-        int maxLevel = maxLevel(root);
-        Container cont = new Container();
-        printNodeInternal(Collections.singletonList(root), 1, maxLevel, cont);
-        cont.setLayout(new GridLayout(0, 1));
-        JPanel panel = new JPanel();
-        panel.add(cont);
-        panel.setBackground(new Color(195,195,210));
-        int sVerticalValue = pane.getVerticalScrollBar().getValue();
-        int hVerticalValue = pane.getHorizontalScrollBar().getValue();
-        pane.getViewport().setView(panel);
-        pane.getVerticalScrollBar().setValue(sVerticalValue);
-        pane.getHorizontalScrollBar().setValue(hVerticalValue);
-        pane.getViewport().setView(panel);
+    private void preOrder(Node node, ArrayList<Integer> list) {
+        if (node == null) {
+            return;
+        }
+
+        list.add(node.getContent());
+        preOrder(node.getLeft(), list);
+        preOrder(node.getRight(), list);
+
+    }
+
+    public ArrayList<Integer> preOrder() {
+        ArrayList<Integer> list = new ArrayList<>();
+        preOrder(root, list);
+        return list;
+    }
+
+    private void inOrder(Node node, ArrayList<Integer> list) {
+        if (node == null) {
+            return;
+        }
+
+        preOrder(node.getLeft(), list);
+        list.add(node.getContent());
+        preOrder(node.getRight(), list);
+    }
+
+    public ArrayList<Integer> inOrder() {
+        ArrayList<Integer> list = new ArrayList<>();
+        inOrder(root, list);
+        return list;
+    }
+
+    private void posOrder(Node node, ArrayList<Integer> list) {
+        if (node == null) {
+            return;
+        }
+
+        preOrder(node.getLeft(), list);
+        preOrder(node.getRight(), list);
+        list.add(node.getContent());
+    }
+
+    public ArrayList<Integer> posOrder() {
+        ArrayList<Integer> list = new ArrayList<>();
+        posOrder(root, list);
+        return list;
+    }
+    
+    
+    
+    public ArrayList<Integer> byLevel() {
+        ArrayList<Integer> list = new ArrayList<>();
         
+        ArrayList<Node> nodes = new ArrayList<>();
+       if(root != null){
+           nodes.add(root);
+       }
+       Node aux;
+        
+        while(!nodes.isEmpty()) {
+            aux = nodes.remove(0);
+            list.add(aux.getContent());
+            if(aux.getLeft() != null) {
+                nodes.add(aux.getLeft());
+            }
+            if(aux.getRight() != null){
+                 nodes.add(aux.getRight());
+            }
+        }
+        
+        return list;
     }
 
-    public void showTree(int value) {
+    public void showTree(int scale) {
         int maxLevel = maxLevel(root);
         Container cont = new Container();
-        printNodeInternal(Collections.singletonList(root), 1, maxLevel, value, cont);
+        printNodeInternal(Collections.singletonList(root), 1, maxLevel, cont, scale);
         cont.setLayout(new GridLayout(0, 1));
+        cont.setBackground(new Color(195, 195, 210));
         JPanel panel = new JPanel();
         panel.add(cont);
-         panel.setBackground(new Color(195,195,210));
+        panel.setBackground(new Color(195, 195, 210));
+        int sVerticalValue = pane.getVerticalScrollBar().getValue();
+        int hVerticalValue = pane.getHorizontalScrollBar().getValue();
+        pane.getViewport().setView(panel);
+        pane.getVerticalScrollBar().setValue(sVerticalValue);
+        pane.getHorizontalScrollBar().setValue(hVerticalValue);
+        pane.getViewport().setView(panel);
+
+    }
+
+    public void showTree(int scale, int value) {
+        int maxLevel = maxLevel(root);
+        Container cont = new Container();
+        printNodeInternal(Collections.singletonList(root), 1, maxLevel, value, cont, scale);
+        cont.setLayout(new GridLayout(0, 1));
+        cont.setBackground(new Color(195, 195, 210));
+
+        JPanel panel = new JPanel();
+        panel.add(cont);
+        panel.setBackground(new Color(195, 195, 210));
         int sVerticalValue = pane.getVerticalScrollBar().getValue();
         int hVerticalValue = pane.getHorizontalScrollBar().getValue();
         pane.getViewport().setView(panel);
@@ -162,7 +240,7 @@ public class ABP {
         pane.getViewport().setView(panel);
     }
 
-    private void printNodeInternal(List<Node> nodes, int level, int maxLevel, int value, Container cont) {
+    private void printNodeInternal(List<Node> nodes, int level, int maxLevel, int value, Container cont, int scale) {
         if (nodes.isEmpty() || isAllElementsNull(nodes)) {
             return;
         }
@@ -172,7 +250,7 @@ public class ABP {
         int betweenSpaces = (int) Math.pow(2, (floor + 1)) - 1;
         JPanel pnl = new JPanel();
         pnl.setLayout(new BoxLayout(pnl, BoxLayout.X_AXIS));
-        printWhitespaces(firstSpaces, pnl);
+        printWhitespaces(firstSpaces, pnl, scale);
 
         List<Node> newNodes = new ArrayList<>();
         for (Node node : nodes) {
@@ -181,21 +259,21 @@ public class ABP {
                 int nodeValue = node.getContent();
 
                 if (nodeValue == value) {
-                    element = new NoGrafico("" + nodeValue, true);
+                    element = new NoGrafico("" + nodeValue, scale, true);
                 } else {
-                    element = new NoGrafico("" + nodeValue, false);
+                    element = new NoGrafico("" + nodeValue, scale, false);
                 }
 
                 newNodes.add(node.getLeft());
                 newNodes.add(node.getRight());
                 pnl.add(element);
             } else {
-                pnl.add(new Espaco());
+                pnl.add(new Espaco(scale));
                 newNodes.add(null);
                 newNodes.add(null);
             }
 
-            printWhitespaces(betweenSpaces, pnl);
+            printWhitespaces(betweenSpaces, pnl, scale);
         }
         cont.add(pnl);
 
@@ -203,33 +281,33 @@ public class ABP {
             pnl = new JPanel();
             pnl.setLayout(new BoxLayout(pnl, BoxLayout.X_AXIS));
             for (int j = 0; j < nodes.size(); j++) {
-                printWhitespaces(firstSpaces - i, pnl);
+                printWhitespaces(firstSpaces - i, pnl, scale);
                 if (nodes.get(j) == null) {
-                    printWhitespaces(endgeLines + endgeLines + i + 1, pnl);
+                    printWhitespaces(endgeLines + endgeLines + i + 1, pnl, scale);
                     continue;
                 }
                 if (nodes.get(j).getLeft() != null) {
-                    Seta arrow = new Seta(true);
+                    Seta arrow = new Seta(scale, true);
                     pnl.add(arrow);
                 } else {
-                    printWhitespaces(1, pnl);
+                    printWhitespaces(1, pnl, scale);
                 }
-                printWhitespaces(i + i - 1, pnl);
+                printWhitespaces(i + i - 1, pnl, scale);
 
                 if (nodes.get(j).getRight() != null) {
-                    Seta arrow = new Seta(false);
+                    Seta arrow = new Seta(scale, false);
                     pnl.add(arrow);
                 } else {
-                    printWhitespaces(1, pnl);
+                    printWhitespaces(1, pnl, scale);
                 }
-                printWhitespaces(endgeLines + endgeLines - i, pnl);
+                printWhitespaces(endgeLines + endgeLines - i, pnl, scale);
             }
             cont.add(pnl);
         }
-        printNodeInternal(newNodes, level + 1, maxLevel, value, cont);
+        printNodeInternal(newNodes, level + 1, maxLevel, value, cont, scale);
     }
 
-    private void printNodeInternal(List<Node> nodes, int level, int maxLevel, Container cont) {
+    private void printNodeInternal(List<Node> nodes, int level, int maxLevel, Container cont, int scale) {
         if (nodes.isEmpty() || isAllElementsNull(nodes)) {
             return;
         }
@@ -239,61 +317,62 @@ public class ABP {
         int betweenSpaces = (int) Math.pow(2, (floor + 1)) - 1;
         JPanel pnl = new JPanel();
         pnl.setLayout(new BoxLayout(pnl, BoxLayout.X_AXIS));
-        printWhitespaces(firstSpaces, pnl);
+        printWhitespaces(firstSpaces, pnl, scale);
 
         List<Node> newNodes = new ArrayList<>();
         for (Node node : nodes) {
             NoGrafico element;
             if (node != null) {
-                element = new NoGrafico("" + node.getContent(), false);
+                element = new NoGrafico("" + node.getContent(), scale, false);
                 newNodes.add(node.getLeft());
                 newNodes.add(node.getRight());
                 pnl.add(element);
             } else {
-                pnl.add(new Espaco());
+                pnl.add(new Espaco(scale));
                 newNodes.add(null);
                 newNodes.add(null);
             }
 
-            printWhitespaces(betweenSpaces, pnl);
+            printWhitespaces(betweenSpaces, pnl, scale);
         }
-        pnl.setBackground(new Color(195,195,210));
+        pnl.setBackground(new Color(195, 195, 210));
         cont.add(pnl);
 
         for (int i = 1; i <= endgeLines; i++) {
             pnl = new JPanel();
             pnl.setLayout(new BoxLayout(pnl, BoxLayout.X_AXIS));
             for (int j = 0; j < nodes.size(); j++) {
-                printWhitespaces(firstSpaces - i, pnl);
+                printWhitespaces(firstSpaces - i, pnl, scale);
                 if (nodes.get(j) == null) {
-                    printWhitespaces(endgeLines + endgeLines + i + 1, pnl);
+                    printWhitespaces(endgeLines + endgeLines + i + 1, pnl, scale);
                     continue;
                 }
                 if (nodes.get(j).getLeft() != null) {
-                    Seta arrow = new Seta(true);
+                    Seta arrow = new Seta(scale, true);
                     pnl.add(arrow);
                 } else {
-                    printWhitespaces(1, pnl);
+                    printWhitespaces(1, pnl, scale);
                 }
-                printWhitespaces(i + i - 1, pnl);
+                printWhitespaces(i + i - 1, pnl, scale);
 
                 if (nodes.get(j).getRight() != null) {
-                    Seta arrow = new Seta(false);
+                    Seta arrow = new Seta(scale, false);
                     pnl.add(arrow);
                 } else {
-                    printWhitespaces(1, pnl);
+                    printWhitespaces(1, pnl, scale);
                 }
-                printWhitespaces(endgeLines + endgeLines - i, pnl);
+                printWhitespaces(endgeLines + endgeLines - i, pnl, scale);
             }
-            pnl.setBackground(new Color(195,195,210));
+            pnl.setBackground(new Color(195, 195, 210));
             cont.add(pnl);
         }
-        printNodeInternal(newNodes, level + 1, maxLevel, cont);
+        printNodeInternal(newNodes, level + 1, maxLevel, cont, scale);
     }
 
-    private void printWhitespaces(int count, JPanel pnl) {
+    private void printWhitespaces(int count, JPanel pnl, int scale) {
         for (int i = 0; i < count; i++) {
-            pnl.add(new Espaco());
+            pnl.add(new Espaco(scale));
+            pnl.setBackground(new Color(195, 195, 210));
         }
     }
 

@@ -2,6 +2,9 @@ package Interface.Arvore;
 
 import Estruturas.ABP;
 import Exceptions.*;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JOptionPane;
 
 public class pnlABP extends javax.swing.JPanel {
@@ -11,7 +14,7 @@ public class pnlABP extends javax.swing.JPanel {
     public pnlABP() {
         initComponents();
         tree = new ABP(scrollPane);
-        tree.showTree();
+        tree.showTree(scaleSlider.getValue());
     }
 
     /**
@@ -33,6 +36,12 @@ public class pnlABP extends javax.swing.JPanel {
         lblBusca = new javax.swing.JLabel();
         txtBusca = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        scaleSlider = new javax.swing.JSlider();
+        traversePanel = new javax.swing.JPanel();
+        btnPreOrder = new javax.swing.JButton();
+        btnInOrder = new javax.swing.JButton();
+        btnPosOrder = new javax.swing.JButton();
+        btnByLevel = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(195, 195, 210));
 
@@ -91,6 +100,52 @@ public class pnlABP extends javax.swing.JPanel {
 
         actionPanel.add(searchPanel);
 
+        scaleSlider.setBackground(new java.awt.Color(195, 195, 210));
+        scaleSlider.setMaximum(8);
+        scaleSlider.setMinimum(1);
+        scaleSlider.setValue(4);
+        scaleSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                scaleSliderStateChanged(evt);
+            }
+        });
+        actionPanel.add(scaleSlider);
+
+        traversePanel.setBackground(new java.awt.Color(195, 195, 210));
+        traversePanel.setLayout(new java.awt.GridLayout(1, 0, 15, 0));
+
+        btnPreOrder.setText("Pre-Ordem");
+        btnPreOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreOrderActionPerformed(evt);
+            }
+        });
+        traversePanel.add(btnPreOrder);
+
+        btnInOrder.setText("In-Ordem");
+        btnInOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInOrderActionPerformed(evt);
+            }
+        });
+        traversePanel.add(btnInOrder);
+
+        btnPosOrder.setText("Pos-Ordem");
+        btnPosOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPosOrderActionPerformed(evt);
+            }
+        });
+        traversePanel.add(btnPosOrder);
+
+        btnByLevel.setText("Por Nivel");
+        btnByLevel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnByLevelActionPerformed(evt);
+            }
+        });
+        traversePanel.add(btnByLevel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,16 +154,19 @@ public class pnlABP extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollPane)
-                    .addComponent(actionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(actionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(traversePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPane)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(actionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(traversePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(actionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -117,7 +175,7 @@ public class pnlABP extends javax.swing.JPanel {
         try {
             int value = Integer.parseInt(txtValor.getText());
             tree.insert(value);
-            tree.showTree();
+            tree.showTree(scaleSlider.getValue());
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Caractere Invalido. Digite um numero");
         } catch (NumeroInvalidoException ex) {
@@ -129,12 +187,10 @@ public class pnlABP extends javax.swing.JPanel {
         try {
             int value = Integer.parseInt(txtBusca.getText());
             tree.search(value);
-            tree.showTree(value);
+            tree.showTree(scaleSlider.getValue(), value);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Caractere Invalido. Digite um numero");
-        } catch (DadoNaoEncontradoException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        } catch (EstruturaVaziaException ex) {
+        } catch (DadoNaoEncontradoException | EstruturaVaziaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -147,14 +203,120 @@ public class pnlABP extends javax.swing.JPanel {
         btnBuscar.doClick();
     }//GEN-LAST:event_txtBuscaActionPerformed
 
+    private void scaleSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_scaleSliderStateChanged
+        tree.showTree(scaleSlider.getValue());
+    }//GEN-LAST:event_scaleSliderStateChanged
+
+    private void btnPreOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreOrderActionPerformed
+        enableButtons(false);
+        ArrayList<Integer> list = tree.preOrder();
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+
+            int i = 0;
+
+            @Override
+            public void run() {
+                if (list.isEmpty()) {
+                    cancel();
+                    enableButtons(true);
+                } else {
+                    tree.showTree(scaleSlider.getValue(), list.remove(i));
+                }
+
+            }
+        }, 500, 500);
+
+
+    }//GEN-LAST:event_btnPreOrderActionPerformed
+
+    private void btnInOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInOrderActionPerformed
+        enableButtons(false);
+        ArrayList<Integer> list = tree.inOrder();
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+
+            int i = 0;
+
+            @Override
+            public void run() {
+                if (list.isEmpty()) {
+                    cancel();
+                    enableButtons(true);
+                } else {
+                    tree.showTree(scaleSlider.getValue(), list.remove(i));
+                }
+
+            }
+        }, 500, 500);
+    }//GEN-LAST:event_btnInOrderActionPerformed
+
+    private void btnPosOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPosOrderActionPerformed
+        enableButtons(false);
+        ArrayList<Integer> list = tree.posOrder();
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+
+            int i = 0;
+
+            @Override
+            public void run() {
+                if (list.isEmpty()) {
+                    cancel();
+                    enableButtons(true);
+                } else {
+                    tree.showTree(scaleSlider.getValue(), list.remove(i));
+                }
+
+            }
+        }, 500, 500);
+
+    }//GEN-LAST:event_btnPosOrderActionPerformed
+
+    private void btnByLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnByLevelActionPerformed
+        enableButtons(false);
+        ArrayList<Integer> list = tree.byLevel();
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+
+            int i = 0;
+
+            @Override
+            public void run() {
+                if (list.isEmpty()) {
+                    cancel();
+                    enableButtons(true);
+                } else {
+                    tree.showTree(scaleSlider.getValue(), list.remove(i));
+                }
+
+            }
+        }, 500, 500);
+    }//GEN-LAST:event_btnByLevelActionPerformed
+
+    private void enableButtons(boolean enable) {
+        btnPreOrder.setEnabled(enable);
+        btnInOrder.setEnabled(enable);
+        btnPosOrder.setEnabled(enable);
+        btnByLevel.setEnabled(enable);
+        btnAdicionar.setEnabled(enable);
+        btnBuscar.setEnabled(enable);
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnByLevel;
+    private javax.swing.JButton btnInOrder;
+    private javax.swing.JButton btnPosOrder;
+    private javax.swing.JButton btnPreOrder;
     private javax.swing.JLabel lblBusca;
     private javax.swing.JLabel lblValor;
+    private javax.swing.JSlider scaleSlider;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JPanel searchPanel;
+    private javax.swing.JPanel traversePanel;
     private javax.swing.JTextField txtBusca;
     private javax.swing.JTextField txtValor;
     private javax.swing.JPanel valuePanel;

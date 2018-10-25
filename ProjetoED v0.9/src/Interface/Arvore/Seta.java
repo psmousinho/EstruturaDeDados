@@ -1,5 +1,6 @@
 package Interface.Arvore;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -7,18 +8,17 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class Seta extends JPanel {
-    
-    
-    private static ImageIcon leftDiagonal = new ImageIcon(new ImageIcon("src//assets//diagonalL.png").getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
-    private static ImageIcon rightDiagonal = new ImageIcon(new ImageIcon("src//assets//diagonalR.png").getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+   
     
     private final boolean left;
     
     /** Creates new form Element
+     * @param scale
      * @param left */
-    public Seta(boolean left) {
+    public Seta(int scale, boolean left) {
         this.left = left;
         initComponents();
+        setSize(scale);
     }
 
     /** This method is called from within the constructor to
@@ -65,20 +65,29 @@ public class Seta extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void arrowLabelComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_arrowLabelComponentResized
-        setNext();
+
     }//GEN-LAST:event_arrowLabelComponentResized
 
     public JLabel getLabel(){
         return arrowLabel;
     }
 
-    public void setNext(){
+    
+    private void setSize(int scale){
+        Dimension dim = new Dimension(25*scale, 25*scale);
+        int x = (int) dim.getHeight();
+        this.setMinimumSize(dim);
+        this.setMaximumSize(dim);
+        this.setPreferredSize(dim);
+        arrowLabel.setMinimumSize(dim);
+        arrowLabel.setMaximumSize(dim);
+        arrowLabel.setPreferredSize(dim);
         if(left) {
-           
-            arrowLabel.setIcon(leftDiagonal);
+            arrowLabel.setIcon(ConstantsLabels.leftArrow[scale]);
         } else {
-            arrowLabel.setIcon(rightDiagonal);
+            arrowLabel.setIcon(ConstantsLabels.rightArrow[scale]);
         }
+        this.revalidate();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
